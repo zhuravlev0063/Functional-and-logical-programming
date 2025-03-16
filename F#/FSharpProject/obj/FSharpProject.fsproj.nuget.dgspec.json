@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/zhuravlev0063/F#/FSharpProject/FSharpProject.fsproj": {}
+    "/home/zhuravlev0063/FiLP/F#/FSharpProject/FSharpProject.fsproj": {}
   },
   "projects": {
-    "/home/zhuravlev0063/F#/FSharpProject/FSharpProject.fsproj": {
+    "/home/zhuravlev0063/FiLP/F#/FSharpProject/FSharpProject.fsproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/zhuravlev0063/F#/FSharpProject/FSharpProject.fsproj",
+        "projectUniqueName": "/home/zhuravlev0063/FiLP/F#/FSharpProject/FSharpProject.fsproj",
         "projectName": "FSharpProject",
-        "projectPath": "/home/zhuravlev0063/F#/FSharpProject/FSharpProject.fsproj",
+        "projectPath": "/home/zhuravlev0063/FiLP/F#/FSharpProject/FSharpProject.fsproj",
         "packagesPath": "/home/zhuravlev0063/.nuget/packages/",
-        "outputPath": "/home/zhuravlev0063/F#/FSharpProject/obj/",
+        "outputPath": "/home/zhuravlev0063/FiLP/F#/FSharpProject/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/zhuravlev0063/.nuget/NuGet/NuGet.Config"
