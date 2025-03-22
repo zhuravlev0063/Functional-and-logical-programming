@@ -1,4 +1,4 @@
-﻿﻿open System
+﻿open System
 open WorkingWithNumbers.NumberOperations
 
 
@@ -57,7 +57,12 @@ let main (args : string[]) =
     System.Console.WriteLine("Введите число:")
     let num = System.Int32.Parse(Console.ReadLine())
 
+    System.Console.WriteLine("Рекурсия вверх")
     System.Console.WriteLine("Сумма цифр числа: {0}", (processDigitsRecursionToTop num (+) ) )
     System.Console.WriteLine("Прозведение цифр числа: {0}", (processDigitsRecursionToTop num (*) ) )
+
+    System.Console.WriteLine("Рекурсия вниз")
+    System.Console.WriteLine("Сумма цифр числа: {0}", (processDigitsRecursionToDown 0 num (+) ) )
+    System.Console.WriteLine("Прозведение цифр числа: {0}", (processDigitsRecursionToDown 1 num (*) ) )
 
     0

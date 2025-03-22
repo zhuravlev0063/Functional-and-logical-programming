@@ -1,11 +1,15 @@
 namespace WorkingWithNumbers
- 
- module NumberOperations = 
- 
-     let rec processDigits (num: int) (accum: int) (oper: int -> int -> int)  = 
-         if num = 0 then accum
-         else
-             let digit : int = num % 10
-             let new_num : int = int num / 10
-             let new_accum : int = oper digit accum
-             processDigits new_num new_accum oper
+
+module NumberOperations = 
+
+    let rec processDigitsRecursionToDown (accum: int) (num: int) (oper: int -> int -> int)  = 
+        if num < 10 then
+            oper accum num
+        else
+            processDigitsRecursionToDown (oper accum (num % 10)) (num / 10) oper
+
+    let rec processDigitsRecursionToTop (num: int) (oper: int -> int -> int)  = 
+        if num < 10 then
+            num
+        else
+            oper (processDigitsRecursionToTop (num / 10) oper) (num % 10)
