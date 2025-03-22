@@ -1,5 +1,4 @@
-﻿open System
-
+﻿﻿open System
 open WorkingWithNumbers.NumberOperations
 
 
@@ -33,10 +32,32 @@ let volume_cylinder_through_carry r h =
 let main (args : string[]) =
     printfn "Hello, World"
 
-    printfn "Введите число:"
+    System.Console.WriteLine("Введите коэффициенты квадратного уравения a, b, c:")
+    let a = Double.Parse(System.Console.ReadLine())
+    let b = Double.Parse(System.Console.ReadLine())
+    let c = Double.Parse(System.Console.ReadLine())
+
+    let roots = solve_quadr a b c
+    match roots with
+        None -> System.Console.WriteLine("Нет решений")
+        | Linear(x) -> System.Console.WriteLine("Единственный корень: {0}", x)
+        | Quadratic(x, y) -> System.Console.WriteLine("Корни: {0} {1}", x, y)
+
+
+    System.Console.WriteLine("Введите радиус и высоту цилиндра:")
+    let r = Double.Parse(System.Console.ReadLine())
+    let h = Double.Parse(System.Console.ReadLine())
+    
+    let volume_superpos = volume_cylinder_through_superpos (r, h)
+    System.Console.WriteLine("(Суперпозиция) Объем цилиндра с радиусом основания {0} и высотой {1}: {2}", r, h, volume_superpos)
+
+    let volume_carry = volume_cylinder_through_carry r h
+    System.Console.WriteLine("(Каррирование) Объем цилиндра с радиусом основания {0} и высотой {1}: {2}", r, h, volume_carry)
+
+    System.Console.WriteLine("Введите число:")
     let num = System.Int32.Parse(Console.ReadLine())
 
-    printfn "Сумма цифр числа: %d" (processDigits num 0 (+) )
-    printfn "Прозведение цифр числа: %d" (processDigits num 1 (*) )
+    System.Console.WriteLine("Сумма цифр числа: {0}", (processDigitsRecursionToTop num (+) ) )
+    System.Console.WriteLine("Прозведение цифр числа: {0}", (processDigitsRecursionToTop num (*) ) )
 
     0
