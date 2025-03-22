@@ -1,9 +1,22 @@
-﻿printfn "Hello from F#"
+﻿
+open System
 
-let solve_quadr (a, b, c) =
-    let D = b * b - 4. * a * c
-    ( (-b + sqrt(D)) / (2. * a), (-b - sqrt(D)) / (2. * a) )
 
-let roots = solve_quadr (1.0, 2.0, -3.0)
+let solve_quadr a b c =
+        let D = b * b - 4. * a * c
+        ( (-b + sqrt(D)) / (2. * a), (-b - sqrt(D)) / (2. * a) )
 
-printfn "Корни уравнения: %A" roots
+
+[<EntryPoint>]
+let main (args : string[]) =
+    printfn "Hello from F#"
+
+    printfn "Введите коэффициенты квадратного уравения a, b, c:"    
+    let a = Double.Parse(Console.ReadLine())
+    let b = Double.Parse(Console.ReadLine())
+    let c = Double.Parse(Console.ReadLine())
+
+    let roots = solve_quadr a b c
+    printfn "Корни уравнения: %A" roots
+
+    0
