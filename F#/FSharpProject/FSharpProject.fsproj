@@ -5,8 +5,9 @@
     <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup><Compile Include="Program.fs" />
-    
+  <ItemGroup>
+  <Compile Include="WorkingWithNumbers.fs" />
+  <Compile Include="Program.fs" />  
   </ItemGroup>
 
 </Project>
