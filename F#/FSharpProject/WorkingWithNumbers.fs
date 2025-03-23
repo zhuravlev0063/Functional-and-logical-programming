@@ -55,3 +55,10 @@ module NumberOperations =
 
     let EulerFunction (num: int) : int =
         bypassMutuallyPrimeComponentsInNumber 1 num (fun x acc -> acc + 1) 0
+
+    let rec bypassMutuallyPrimeWithCondition (current: int) (num: int) (func: int -> int -> int) (accum: int) (condition: int -> bool) =
+        match current with
+        x when x >= num -> accum
+        | x when GCD (num, x) = 1 && condition x -> 
+            bypassMutuallyPrimeWithCondition (current + 1) num func (func accum current) condition
+        | _ -> bypassMutuallyPrimeWithCondition (current + 1) num func accum condition

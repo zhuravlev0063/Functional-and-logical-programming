@@ -137,5 +137,9 @@ let main (args : string[]) =
     let res = NumberOperations.EulerFunction (int num)
     System.Console.WriteLine("Функция Эйлера от {0} есть {1}", num, res)
  
+    // № 15
+    let num = 15
+    let res = NumberOperations.bypassMutuallyPrimeWithCondition 1 num (+) 0 (fun a -> a % 2 <> 0)
+    System.Console.WriteLine("Сумма нечетных взаимно-простых чисел от 1 до {0} есть {1}", num, res)
 
     0
