@@ -7,7 +7,7 @@ type SolveQuadratic =
     | Linear of float
     | Quadratic of float * float
 
-let solve_quadr a b c =
+let solveQuadr a b c =
         let D = b * b - 4. * a * c
         if a = 0. then
             if b = 0. then None
@@ -16,17 +16,26 @@ let solve_quadr a b c =
             if D < 0. then None
             else Quadratic(( (-b + sqrt(D)) / (2. * a), (-b - sqrt(D)) / (2. * a) ))
 
-let square_circle r = 
+let squareCircle r = 
     (System.Math.PI * r ** 2.0)
 
 let volume_cylinder_through_superpos (r, h) =
-    let square_cylinder_base = square_circle r
+    let square_cylinder_base = squareCircle r
     h * square_cylinder_base
 
 let volume_cylinder_through_carry r h =
-    let square_cylinder_base = square_circle r
+    let square_cylinder_base = squareCircle r
     h * square_cylinder_base
 
+let favLang (lang: string) : unit =
+     let result =
+         match lang with
+             "F#" | "Prolog" -> "ты подлиза"
+             | "java" -> "интересный выбор"
+             | "python" -> "крутой"
+             | _ -> "ясно"
+ 
+     result |> System.Console.WriteLine
 
 [<EntryPoint>]
 let main (args : string[]) =
@@ -112,5 +121,10 @@ let main (args : string[]) =
     let mult_digits = NumberOperations.bypassDigitsWithCondition 1234 mult 1 notThree
     System.Console.WriteLine("Произведение цифр числа, которые не равны 3: {0}", mult_digits)
 
+    System.Console.Write("Какой Ваш любимый язык: ")
+    let lang_choice = System.Console.ReadLine()
+    favLang lang_choice
+    favLang "java"
+    favLang "С++"
 
     0
