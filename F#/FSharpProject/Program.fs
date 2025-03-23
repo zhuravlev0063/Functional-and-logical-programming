@@ -132,4 +132,10 @@ let main (args : string[]) =
     let res = NumberOperations.bypassMutuallyPrimeComponentsInNumber 1 10 (fun a b -> a + b) 0
     System.Console.WriteLine("{0}", res)
 
+    // №14
+    let num = Console.ReadLine()
+    let res = NumberOperations.EulerFunction (int num)
+    System.Console.WriteLine("Функция Эйлера от {0} есть {1}", num, res)
+ 
+
     0
