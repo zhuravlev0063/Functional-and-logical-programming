@@ -59,12 +59,12 @@ let main (args : string[]) =
     let num = System.Int32.Parse(Console.ReadLine())
 
     System.Console.WriteLine("Рекурсия вверх")
-    System.Console.WriteLine("Сумма цифр числа: {0}", (processDigitsRecursionToTop num (+) ) )
-    System.Console.WriteLine("Прозведение цифр числа: {0}", (processDigitsRecursionToTop num (*) ) )
+    System.Console.WriteLine("Сумма цифр числа: {0}", (NumberOperations.processDigitsRecursionToTop num (+) ) )
+    System.Console.WriteLine("Прозведение цифр числа: {0}", (NumberOperations.processDigitsRecursionToTop num (*) ) )
 
     System.Console.WriteLine("Рекурсия вниз")
-    System.Console.WriteLine("Сумма цифр числа: {0}", (processDigitsRecursionToDown 0 num (+) ) )
-    System.Console.WriteLine("Прозведение цифр числа: {0}", (processDigitsRecursionToDown 1 num (*) ) )
+    System.Console.WriteLine("Сумма цифр числа: {0}", (NumberOperations.processDigitsRecursionToDown (+) 0 num  ) )
+    System.Console.WriteLine("Прозведение цифр числа: {0}", (NumberOperations.processDigitsRecursionToDown (*) 1 num ) )
 
 
     let factor = NumberOperations.chooseFunction false
@@ -74,8 +74,6 @@ let main (args : string[]) =
     let factor1 = NumberOperations.chooseFunction true
     Console.WriteLine("Результат: {0}", (factor1 0 12345))
     Console.WriteLine("Результат: {0}", (factor1 0 1236781))
-
-*)
 
     let min_function = fun a b -> if a < b then a else b
     let min_digit = NumberOperations.bypassDigits 1234 min_function 10
@@ -92,6 +90,27 @@ let main (args : string[]) =
     let mult = fun a b -> a * b
     let mult_digits = NumberOperations.bypassDigits 1234 mult 1
     System.Console.WriteLine("Произведение цифр числа: {0}", mult_digits)
+*)
+
+    let min_function = fun a b -> if a < b then a else b
+    let evenCondition = fun a -> if a % 2 = 0 then true else false
+    let min_digit = NumberOperations.bypassDigitsWithCondition 1234 min_function 10 evenCondition
+    System.Console.WriteLine("Минимальная четная цифра числа: {0}", min_digit)
+
+    let max_function = fun a b -> if a > b then a else b
+    let oddCondition = fun a -> if a % 2 <> 0 then true else false
+    let max_digit = NumberOperations.bypassDigitsWithCondition 1234 max_function 0 oddCondition
+    System.Console.WriteLine("Максимальная нечетная цифра числа: {0}", max_digit)
+
+    let plus = fun a b -> a + b
+    let notOne = fun a -> if a <> 1 then true else false
+    let plus_digits = NumberOperations.bypassDigitsWithCondition 1234 plus 0 notOne
+    System.Console.WriteLine("Сумма цифр числа, которые не равны 1: {0}", plus_digits)
+
+    let mult = fun a b -> a * b
+    let notThree = fun a -> if a <> 3 then true else false
+    let mult_digits = NumberOperations.bypassDigitsWithCondition 1234 mult 1 notThree
+    System.Console.WriteLine("Произведение цифр числа, которые не равны 3: {0}", mult_digits)
 
 
     0

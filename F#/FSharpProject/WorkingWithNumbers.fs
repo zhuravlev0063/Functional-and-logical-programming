@@ -31,13 +31,13 @@ module NumberOperations =
         true -> processDigitsRecursionToDown (+)
         | false -> factorialRecursionToDown
 
-    (*let rec processDigits (num: int) (accum: int) =
-        if num < 10 then
-            oper accum num
-        else
-            processDigitsRecursionToDown oper (oper accum (num % 10)) (num / 10) 
-    *)
-    let rec bypassDigits (num: int) func (accum: int) =
+    let rec bypassDigits (num: int) (func: int -> int -> int) (accum: int) : int =
         match num with
         0 -> accum
-        | _ -> bypassDigits (int num / 10) func (func (num % 10) accum)
+        | _ -> bypassDigits (int num / 10) func (func (num % 10) accum) 
+
+    let rec bypassDigitsWithCondition (num: int) (twoArgFunc: int -> int -> int) (accum: int) (condition: int -> bool) : int =
+        match num with
+        0 -> accum
+        | _ when (condition (num % 10)) = true -> bypassDigitsWithCondition (num / 10) twoArgFunc (twoArgFunc (num % 10) accum) condition
+        | _ -> bypassDigitsWithCondition (num / 10) twoArgFunc accum condition
