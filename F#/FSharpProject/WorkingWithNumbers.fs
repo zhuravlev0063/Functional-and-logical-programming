@@ -41,3 +41,14 @@ module NumberOperations =
         0 -> accum
         | _ when (condition (num % 10)) = true -> bypassDigitsWithCondition (num / 10) twoArgFunc (twoArgFunc (num % 10) accum) condition
         | _ -> bypassDigitsWithCondition (num / 10) twoArgFunc accum condition
+        
+    let rec GCD (a: int, b: int) : int =
+        match b with
+        0 -> a
+        | _ -> GCD (b, a % b)
+
+    let rec bypassMutuallyPrimeComponentsInNumber (current: int) (num: int) (func: int -> int -> int) (accum: int) : int =
+         match current with
+         x when x >= num -> accum
+         | x when GCD(num, x) = 1 -> bypassMutuallyPrimeComponentsInNumber (current+1) num func (func current accum)
+         | _ -> bypassMutuallyPrimeComponentsInNumber (current+1) num func accum

@@ -100,7 +100,7 @@ let main (args : string[]) =
     let mult_digits = NumberOperations.bypassDigits 1234 mult 1
     System.Console.WriteLine("Произведение цифр числа: {0}", mult_digits)
 *)
-
+    // №9-10
     let min_function = fun a b -> if a < b then a else b
     let evenCondition = fun a -> if a % 2 = 0 then true else false
     let min_digit = NumberOperations.bypassDigitsWithCondition 1234 min_function 10 evenCondition
@@ -121,10 +121,15 @@ let main (args : string[]) =
     let mult_digits = NumberOperations.bypassDigitsWithCondition 1234 mult 1 notThree
     System.Console.WriteLine("Произведение цифр числа, которые не равны 3: {0}", mult_digits)
 
+    // №11-12
     System.Console.Write("Какой Ваш любимый язык: ")
     let lang_choice = System.Console.ReadLine()
     favLang lang_choice
     favLang "java"
     favLang "С++"
+
+    // №13
+    let res = NumberOperations.bypassMutuallyPrimeComponentsInNumber 1 10 (fun a b -> a + b) 0
+    System.Console.WriteLine("{0}", res)
 
     0
