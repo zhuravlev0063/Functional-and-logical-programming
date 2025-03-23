@@ -62,3 +62,46 @@ module NumberOperations =
         | x when GCD (num, x) = 1 && condition x -> 
             bypassMutuallyPrimeWithCondition (current + 1) num func (func accum current) condition
         | _ -> bypassMutuallyPrimeWithCondition (current + 1) num func accum condition
+
+    let isPrime n =
+        let rec check i =
+            if i * i > n then true
+            else if n % i = 0 then false
+            else check (i + 1)
+        if n <= 1 then false else check 2
+
+    let maxPrimeDivisor n =
+        let rec findDivisor i maxDiv =
+            if i > n / 2 then maxDiv
+            elif n % i = 0 && isPrime i then findDivisor (i + 1) i
+            else findDivisor (i + 1) maxDiv
+        findDivisor 2 1
+    
+    let productDigitsNotDividesOn5 num =
+        let rec product acc num =
+            match num with
+            | 0 -> acc
+            | _ ->
+                let digit = num % 10
+                let newAcc = if digit % 5 <> 0 then acc * digit else acc
+                product newAcc (num / 10)
+        product 1 num
+
+    let max_odd_non_prime_divisor n =
+        let rec find_divisor i maxDiv =
+            if i > n / 2 then maxDiv
+            elif n % i = 0 && i % 2 <> 0 && not (isPrime i) then find_divisor (i + 1) i
+            else find_divisor (i + 1) maxDiv
+        find_divisor 2 1
+
+    let product_of_digits num =
+        let rec product acc num =
+            match num with
+            | 0 -> acc
+            | _ -> product (acc * (num % 10)) (num / 10)
+        product 1 num
+
+    let gcd_of_max_odd_non_prime_and_product n =
+        let maxOddNonPrime = max_odd_non_prime_divisor n
+        let productDigits = product_of_digits n
+        GCD (maxOddNonPrime, productDigits)

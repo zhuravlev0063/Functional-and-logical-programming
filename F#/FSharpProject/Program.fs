@@ -133,13 +133,28 @@ let main (args : string[]) =
     System.Console.WriteLine("{0}", res)
 
     // №14
+    System.Console.Write("Введите число для подсчета функции Эйлера: ")
     let num = Console.ReadLine()
     let res = NumberOperations.EulerFunction (int num)
     System.Console.WriteLine("Функция Эйлера от {0} есть {1}", num, res)
  
-    // № 15
+    // №15
     let num = 15
     let res = NumberOperations.bypassMutuallyPrimeWithCondition 1 num (+) 0 (fun a -> a % 2 <> 0)
     System.Console.WriteLine("Сумма нечетных взаимно-простых чисел от 1 до {0} есть {1}", num, res)
 
+    // №16.1
+    let max_prime = NumberOperations.maxPrimeDivisor 56
+    System.Console.WriteLine("Максимальный простой делитель: {0}",max_prime)
+    
+    // №16.2
+    let product = NumberOperations.productDigitsNotDividesOn5 12345
+    System.Console.WriteLine("Произведение цифр числа, не делящихся на 5: {0}",product)
+
+    // №16.3
+    let gcdResult = NumberOperations.gcd_of_max_odd_non_prime_and_product 36
+    System.Console.WriteLine("НОД максимального нечетного непростого делителя и произведения цифр: {0}",gcdResult)
+
+
+    
     0
