@@ -1,5 +1,5 @@
 ﻿open System
-open WorkingWithNumbers.NumberOperations
+open WorkingWithNumbers
 
 
 type SolveQuadratic =
@@ -32,6 +32,7 @@ let volume_cylinder_through_carry r h =
 let main (args : string[]) =
     printfn "Hello, World"
 
+(*
     System.Console.WriteLine("Введите коэффициенты квадратного уравения a, b, c:")
     let a = Double.Parse(System.Console.ReadLine())
     let b = Double.Parse(System.Console.ReadLine())
@@ -64,5 +65,33 @@ let main (args : string[]) =
     System.Console.WriteLine("Рекурсия вниз")
     System.Console.WriteLine("Сумма цифр числа: {0}", (processDigitsRecursionToDown 0 num (+) ) )
     System.Console.WriteLine("Прозведение цифр числа: {0}", (processDigitsRecursionToDown 1 num (*) ) )
+
+
+    let factor = NumberOperations.chooseFunction false
+    Console.WriteLine("Результат: {0}", (factor 1 6))
+    Console.WriteLine("Результат: {0}", (factor 1 5))
+
+    let factor1 = NumberOperations.chooseFunction true
+    Console.WriteLine("Результат: {0}", (factor1 0 12345))
+    Console.WriteLine("Результат: {0}", (factor1 0 1236781))
+
+*)
+
+    let min_function = fun a b -> if a < b then a else b
+    let min_digit = NumberOperations.bypassDigits 1234 min_function 10
+    System.Console.WriteLine("Минимальная цифра числа: {0}", min_digit)
+
+    let max_function = fun a b -> if a > b then a else b
+    let max_digit = NumberOperations.bypassDigits 1234 max_function 0
+    System.Console.WriteLine("Максимальная цифра числа: {0}", max_digit)
+
+    let plus = fun a b -> a + b
+    let plus_digits = NumberOperations.bypassDigits 1234 plus 0
+    System.Console.WriteLine("Сумма цифр числа: {0}", plus_digits)
+
+    let mult = fun a b -> a * b
+    let mult_digits = NumberOperations.bypassDigits 1234 mult 1
+    System.Console.WriteLine("Произведение цифр числа: {0}", mult_digits)
+
 
     0
