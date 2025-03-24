@@ -37,23 +37,36 @@ let favLang (lang: string) : unit =
  
      result |> System.Console.WriteLine
 
+
+let chooseMethod (func_num: int, num: int) : unit =
+    match func_num with
+    1 -> NumberOperations.maxPrimeDivisor num |> Console.WriteLine
+    | 2 -> NumberOperations.productDigitsNotDividesOn5 num |> Console.WriteLine
+    | 3 -> NumberOperations.gcd_of_max_odd_non_prime_and_product num |> Console.WriteLine
+    | _ -> Console.WriteLine("Неверный номер")
+
+
 [<EntryPoint>]
 let main (args : string[]) =
+
+    // №1
     printfn "Hello, World"
 
-(*
+
+    // №2
     System.Console.WriteLine("Введите коэффициенты квадратного уравения a, b, c:")
     let a = Double.Parse(System.Console.ReadLine())
     let b = Double.Parse(System.Console.ReadLine())
     let c = Double.Parse(System.Console.ReadLine())
 
-    let roots = solve_quadr a b c
+    let roots = solveQuadr a b c
     match roots with
         None -> System.Console.WriteLine("Нет решений")
         | Linear(x) -> System.Console.WriteLine("Единственный корень: {0}", x)
         | Quadratic(x, y) -> System.Console.WriteLine("Корни: {0} {1}", x, y)
 
 
+    // №3
     System.Console.WriteLine("Введите радиус и высоту цилиндра:")
     let r = Double.Parse(System.Console.ReadLine())
     let h = Double.Parse(System.Console.ReadLine())
@@ -64,6 +77,8 @@ let main (args : string[]) =
     let volume_carry = volume_cylinder_through_carry r h
     System.Console.WriteLine("(Каррирование) Объем цилиндра с радиусом основания {0} и высотой {1}: {2}", r, h, volume_carry)
 
+
+    // №4
     System.Console.WriteLine("Введите число:")
     let num = System.Int32.Parse(Console.ReadLine())
 
@@ -71,11 +86,14 @@ let main (args : string[]) =
     System.Console.WriteLine("Сумма цифр числа: {0}", (NumberOperations.processDigitsRecursionToTop num (+) ) )
     System.Console.WriteLine("Прозведение цифр числа: {0}", (NumberOperations.processDigitsRecursionToTop num (*) ) )
 
+
+    // №5
     System.Console.WriteLine("Рекурсия вниз")
     System.Console.WriteLine("Сумма цифр числа: {0}", (NumberOperations.processDigitsRecursionToDown (+) 0 num  ) )
     System.Console.WriteLine("Прозведение цифр числа: {0}", (NumberOperations.processDigitsRecursionToDown (*) 1 num ) )
 
 
+    // №6
     let factor = NumberOperations.chooseFunction false
     Console.WriteLine("Результат: {0}", (factor 1 6))
     Console.WriteLine("Результат: {0}", (factor 1 5))
@@ -84,6 +102,8 @@ let main (args : string[]) =
     Console.WriteLine("Результат: {0}", (factor1 0 12345))
     Console.WriteLine("Результат: {0}", (factor1 0 1236781))
 
+
+    // №7-8
     let min_function = fun a b -> if a < b then a else b
     let min_digit = NumberOperations.bypassDigits 1234 min_function 10
     System.Console.WriteLine("Минимальная цифра числа: {0}", min_digit)
@@ -99,8 +119,11 @@ let main (args : string[]) =
     let mult = fun a b -> a * b
     let mult_digits = NumberOperations.bypassDigits 1234 mult 1
     System.Console.WriteLine("Произведение цифр числа: {0}", mult_digits)
-*)
+
+
+
     // №9-10
+
     let min_function = fun a b -> if a < b then a else b
     let evenCondition = fun a -> if a % 2 = 0 then true else false
     let min_digit = NumberOperations.bypassDigitsWithCondition 1234 min_function 10 evenCondition
@@ -155,6 +178,12 @@ let main (args : string[]) =
     let gcdResult = NumberOperations.gcd_of_max_odd_non_prime_and_product 36
     System.Console.WriteLine("НОД максимального нечетного непростого делителя и произведения цифр: {0}",gcdResult)
 
+    // №20
+    Console.Write("Введите номер метода: ")
+    let func_num = Console.ReadLine() |> int
+    Console.Write("Введите число: ")
+    let num = Console.ReadLine() |> int
+    chooseMethod (func_num, num)
 
     
     0
