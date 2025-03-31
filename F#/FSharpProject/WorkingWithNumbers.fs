@@ -129,3 +129,9 @@ module ListOperations =
          | head :: tail -> 
              System.Console.WriteLine(head.ToString())
              writeList tail
+    let rec reduceListWithCondition list (func: int -> int -> int) (condition: int -> bool) (accum: int) =
+         match list with
+         [] -> accum
+         | head :: tail when condition head -> reduceListWithCondition tail func condition (func head accum)
+         | head :: tail when (condition head) = false  -> reduceListWithCondition tail func condition accum
+         | _ -> failwith "Непредвиденная ошибка"
