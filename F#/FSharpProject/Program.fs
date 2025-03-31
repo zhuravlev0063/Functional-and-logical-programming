@@ -197,6 +197,16 @@ let listInvokers () =
     // №3
     let reducedList = ListOperations.reduceListWithCondition [1; 6; 8; 10] (*) (fun a -> a % 2 = 0) 1
     System.Console.WriteLine("Свернутое значение списка: {0}", reducedList)
+
+    // №4
+    let minElem = ListOperations.minInList [1; 5; 0; -2]
+    System.Console.WriteLine("Минимальный элемент списка: {0}", minElem)
+ 
+    let sumEven = ListOperations.sumEvenInList [1; 5; 0; -2]
+    System.Console.WriteLine("Сумма четных элемент списка: {0}", sumEven)
+ 
+    let countOdd = ListOperations.countOddInList [1; 5; 0; -2]
+    System.Console.WriteLine("Количество нечетных элементов в списке: {0}", countOdd)
  
  
 [<EntryPoint>]

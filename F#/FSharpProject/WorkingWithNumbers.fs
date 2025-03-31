@@ -132,6 +132,15 @@ module ListOperations =
     let rec reduceListWithCondition list (func: int -> int -> int) (condition: int -> bool) (accum: int) =
          match list with
          [] -> accum
-         | head :: tail when condition head -> reduceListWithCondition tail func condition (func head accum)
+         | head :: tail when condition head -> reduceListWithCondition tail func condition (func accum head)
          | head :: tail when (condition head) = false  -> reduceListWithCondition tail func condition accum
          | _ -> failwith "Непредвиденная ошибка"
+
+    let sumEvenInList list =
+         reduceListWithCondition list (+) (fun a -> a % 2 = 0) 0
+ 
+    let countOddInList list =
+         reduceListWithCondition list (fun a _ -> a + 1) (fun a -> a % 2 <> 0) 0
+ 
+    let minInList list =
+         reduceListWithCondition list min (fun a -> true) 10
