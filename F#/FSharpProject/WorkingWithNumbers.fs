@@ -144,3 +144,22 @@ module ListOperations =
  
     let minInList list =
          reduceListWithCondition list min (fun a -> true) 10
+    
+    let theMostFrequentInList list =
+         
+         let rec elemFrequentsInList list accum_map = 
+             match list with
+             [] -> accum_map
+             | head :: tail -> 
+                 if Map.containsKey head accum_map then
+                     let currentCount = accum_map.[head]
+                     elemFrequentsInList tail (Map.add head (currentCount + 1) accum_map)
+                 else
+                     elemFrequentsInList tail (Map.add head 1 accum_map)
+ 
+         let frequencyMap = elemFrequentsInList list Map.empty
+ 
+         let mostFrequent = 
+             frequencyMap |> Map.toSeq |> Seq.maxBy snd
+         
+         mostFrequent
