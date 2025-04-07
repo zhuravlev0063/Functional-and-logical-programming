@@ -130,7 +130,7 @@ let count_2_elements (list: int list) =
     list
     |> List.filter (fun x -> unique_el  |> List.exists (fun y -> y * y = x))
     |> List.length
-    
+
 // Задание 9. Реализовать функцию, которая по трем спискам составляет список
 let digit_sum n:int =
     let rec digit_sum_in n curSum =
@@ -190,3 +190,21 @@ let countAfterMaxList list =
         |> List.map fst
         |> List.last
     List.length list - lastIndex - 1
+
+
+//Задание 12. Поиск уникального элемента (11)
+let findUniqueElement list =
+    let rec count_in list el count =
+        match list with
+        | [] -> count
+        | head :: tail ->
+            let newCount = if head = el then count + 1 else count
+            count_in tail el newCount
+    let rec findUnique list =
+        match list with
+        | [] -> 0
+        | head :: tail -> if count_in list head 0 = 1 then head else findUnique tail
+    findUnique list
+
+let findUniqueElementList list =
+    list |> List.countBy id |> List.find (fun (_, count) -> count = 1) |> fst
