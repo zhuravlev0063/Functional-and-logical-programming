@@ -112,3 +112,21 @@ let print_tree tree =
             System.Console.WriteLine(head.ToString())
             print tail
     print (traverse tree)
+
+
+ //Задание 7. ПОиск самого частого встречающегося элемента через класс List
+
+let most_frequent list =
+    list
+    |> List.countBy id // сгруппировали, посчитали кол-во, получили список пар (элемент, кол-во)
+    |> List.sortByDescending snd //отсортировали по убыванию по 2 элементу
+    |> List.head //первый кортеж отсортированного
+    |> fst //перый элемент
+
+//Задание 8. Сколько элементов из списка могут быть квадратом какого-то элемента из списка
+
+let count_2_elements (list: int list) =
+    let unique_el = List.distinct list
+    list
+    |> List.filter (fun x -> unique_el  |> List.exists (fun y -> y * y = x))
+    |> List.length
