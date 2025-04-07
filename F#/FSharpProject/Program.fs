@@ -130,3 +130,63 @@ let count_2_elements (list: int list) =
     list
     |> List.filter (fun x -> unique_el  |> List.exists (fun y -> y * y = x))
     |> List.length
+    
+// Задание 9. Реализовать функцию, которая по трем спискам составляет список
+let digit_sum n:int =
+    let rec digit_sum_in n curSum =
+        if n = 0 then curSum
+        else
+            let n_new = n/10
+            let digit = n%10
+            let sum = curSum + digit
+            digit_sum_in n_new sum
+    digit_sum_in n 0
+
+let count_div n =
+    match n with
+    |0->0
+    |_ ->
+        let n_new = abs n
+        [1..n_new] |> List.filter (fun x -> n_new % x = 0) |> List.length
+
+let create_tuples (listA: int list) (listB: int list) (listC: int list) =
+
+    let sortedA = listA |> List.sortByDescending id
+    let sortedB = listB |> List.sortBy (fun x -> (digit_sum x, abs x))
+    let sortedC = listC |> List.sortByDescending (fun x -> (count_div x, abs x))
+    
+    List.zip3 sortedA sortedB sortedC
+
+//Задание 10. Отсортировать строки по длине
+
+let sort_strings () =
+    let rec readLines acc =
+        let line = System.Console.ReadLine()
+        if  line = "" then acc
+        else readLines (line :: acc)
+    
+    let lines = readLines [] |> List.rev
+    lines |> List.sortBy (fun s -> s.Length)
+
+//Задание 11. Количество элементов после максимального (1)
+
+let countAfterMax list =
+    let maxEl = maxElement list
+    let rec findLastMaxIndex list curIndex index =
+        match list with
+        | [] -> index
+        | head :: tail ->
+            let newLastIndex = if head = maxEl then curIndex else index
+            findLastMaxIndex tail (curIndex + 1) newLastIndex
+    let lastMaxIndex = findLastMaxIndex list 0 (-1)
+    List.length list - lastMaxIndex - 1
+
+let countAfterMaxList list =
+    let maxEl = List.max list
+    let lastIndex = 
+        list 
+        |> List.mapi (fun i x -> i, x) //список пар индекс + элемент
+        |> List.filter (fun (_, x) -> x = maxEl) //оставили макс пары
+        |> List.map fst
+        |> List.last
+    List.length list - lastIndex - 1
