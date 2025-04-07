@@ -1,5 +1,4 @@
-﻿
-let readList n =
+﻿let readList n =
     let rec readListRec n acc =
         match n with
             |0 ->acc
@@ -191,7 +190,6 @@ let countAfterMaxList list =
         |> List.last
     List.length list - lastIndex - 1
 
-
 //Задание 12. Поиск уникального элемента (11)
 let findUniqueElement list =
     let rec count_in list el count =
@@ -251,7 +249,6 @@ let countEvenElementsList list =
     |> List.filter (fun x -> x % 2 = 0) 
     |> List.length
 
-
 //Задание 15. Среднее арифметическое модулей
 
 let average list =
@@ -270,3 +267,137 @@ let averageList list =
     let sumOfAbs = list |> List.map abs |> List.sum
     let count = List.length list
     if count = 0 then 0.0 else float sumOfAbs / float count
+
+//Задание 17. Поиск наибольшей общей подпоследовательности
+
+let rec subseq seq1 seq2 =
+    match seq1, seq2 with
+    | [], _ | _, [] -> [] 
+    | head1::tail1, head2::tail2 ->
+        if head1 = head2 then
+            head1 :: subseq tail1 tail2  
+        else
+            // ищем без первого элемента из первой последовательности и без первого элемента из второй
+            let res1 = subseq tail1 seq2
+            let res2 = subseq seq1 tail2
+            if List.length res1 > List.length res2 then res1 else res2 
+
+//Задание 18. Первернуть массив
+
+let reverseArray arr = Array.rev arr
+
+//Задание 19. Количество русских символов
+
+let countRus (str: string) =
+    str 
+    |> Seq.filter (fun c -> (c >= 'А' && c <= 'Я') ||  (c >= 'а' && c <= 'я') )
+    |> Seq.length
+
+let main () =
+     //let arr = readList 5
+
+     let arr = [2; 3; 4; 5]
+     //printList arr
+     System.Console.Write("Сумма четных от 1 до 5: ")
+     let result = sumEven arr
+     System.Console.WriteLine(result)
+     
+     System.Console.Write("Минимальный от 1 до 5: ")
+     let minEl = minElement arr
+     System.Console.WriteLine(minEl)
+ 
+     System.Console.Write("Количество нечетных от 1 до 5: ")
+     let odds = oddCount arr
+     System.Console.WriteLine(odds)
+
+     let arr_5 = [1; 2; 3; 4; 5; 2; 3; 3;]
+     System.Console.Write("Элементы списка для задания 5: ")
+     printList arr_5
+     System.Console.Write("Самый частый из них: ")
+     System.Console.WriteLine(find_most_frequent arr_5)
+
+     let tree = 
+        node
+        |> add "строка4"
+        |> add "строка2"
+        |> add "строка1"
+        |> add "строка3"
+        |> add "строка5"
+
+     System.Console.WriteLine("Двоичное дерево с элементами строка:")
+     print_tree tree
+
+     System.Console.Write("Самый частый элемент (использование List): ")
+     System.Console.WriteLine(most_frequent arr_5)
+
+     System.Console.Write("Количество элементов, являющиеся квадратами других элементов списка: ")
+     System.Console.WriteLine(count_2_elements arr)
+
+     let listA = [20; 10; 50]   
+     let listB = [91; 88; 10]
+     let listC = [44; 36; 13]
+
+     System.Console.Write("Получившиеся кортежи вида (Аi, Вi, Сi): ")
+     System.Console.WriteLine(create_tuples listA listB listC)
+
+     System.Console.WriteLine("Ввод строк:")
+     let strings = sort_strings()
+     System.Console.WriteLine("Строки, отсортированные по длине: ")
+     strings |> List.iter (System.Console.WriteLine)
+
+     let arr_11 = [1; 3; 7; 2; 7; 4]
+
+     System.Console.Write("Количество элементов после максимального через списки Черча: ")
+     System.Console.WriteLine(countAfterMax arr_11)
+
+     System.Console.Write("Через List: ")
+     System.Console.WriteLine(countAfterMaxList arr_11)
+
+     let arr_12 = [2; 2; 2; 3; 2; 2; 2]
+
+     System.Console.Write("Уникальный элемент через списки Черча: ")
+     System.Console.WriteLine(findUniqueElement arr_12)
+
+     System.Console.Write("Через List: ")
+     System.Console.WriteLine(findUniqueElementList arr_12)
+
+     System.Console.Write("Элементы после первого максимального через списки Черча: ")
+     System.Console.WriteLine(elementsAfterFirstMax arr_11)
+
+     System.Console.Write("Через List: ")
+     System.Console.WriteLine(elementsAfterFirstMax arr_11)
+
+     System.Console.Write("Количество четных через списки Черча: ")
+     System.Console.WriteLine(countEvenElements arr_11)
+
+     System.Console.Write("Через List: ")
+     System.Console.WriteLine(countEvenElementsList arr_11)
+
+     System.Console.Write("Среднее арифметическое модулей через списки Черча: ")
+     System.Console.WriteLine(average arr_11)
+
+     System.Console.Write("Через List: ")
+     System.Console.WriteLine(averageList arr_11)
+
+     let seq1 = [1; 2; 3; 4; 1]
+     let seq2 = [3; 4; 1; 2; 1]
+
+     let result = subseq seq1 seq2
+     System.Console.WriteLine("Наибольшая общая подпоследовательность:")
+     System.Console.WriteLine(result)
+
+     let arr = [| 'П'; 'р'; 'и'; 'в'; 'е'; 'т' |]
+     let reversedArr = reverseArray arr
+
+     System.Console.WriteLine("Исходный массив:")
+     System.Console.WriteLine(arr)
+
+     System.Console.WriteLine("Перевернутый массив:")
+     System.Console.WriteLine(reversedArr)
+
+     let text = "Привет! Hello! 123"
+     let res_19 = countRus text 
+     System.Console.WriteLine("Количество русских символов в строке:")
+     System.Console.WriteLine(res_19)
+
+main()
