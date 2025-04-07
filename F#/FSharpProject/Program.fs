@@ -1,36 +1,24 @@
 ﻿open System
 
-// Определение типа для списка Черча с явным указанием всех параметров типов
-type ChurchList<'a, 'r> = ('a -> 'r -> 'r) -> 'r -> 'r
 
-// Пустой список Черча
-let cnil : ChurchList<'a, 'r> = fun c n -> n
+// Чтение списка с клавиатуры
+let rec readList n =
+    // Считываем n чисел с клавиатуры
+    let list1 = fun f -> fun x -> x
+    let cons head tail = fun f -> fun x -> f head (tail f x)
+    System.Console.WriteLine("введите элемент списка:")
+    match n with
+    | 1 -> cons (System.Console.ReadLine()) list1
+    | _ -> cons (System.Console.ReadLine()) (readList(n-1))
 
-// Операция cons для списка Черча
-let ccons (x: 'a) (xs: ChurchList<'a, 'r>) : ChurchList<'a, 'r> = 
-    fun c n -> c x (xs c n)
+let printList lst =
+        lst (fun head tail -> printf "%A " head; tail) ()
+        printfn "" 
 
-// Функция для преобразования списка Черча в обычный список
-let toList (cl: ChurchList<'a, 'a list>) : 'a list =
-    cl (fun x xs -> x :: xs) []
+[<EntryPoint>]  
+let main (args : string[]) =
 
-// Функция для чтения n элементов с клавиатуры и создания списка Черча
-let readChurchList (n: int) : ChurchList<int, int list> =
-    let rec readElements count acc =
-        if count <= 0 then 
-            acc
-        else
-            printfn "Введите число %d:" (n - count + 1)
-            let num = Console.ReadLine() |> int
-            readElements (count - 1) (ccons num acc)
-    readElements n cnil
-
-// Главная программа
-[<EntryPoint>]
-let main argv =
-    printfn "Введите количество элементов n:"
-    let n = Console.ReadLine() |> int
-    let churchList = readChurchList n
-    let regularList = toList churchList
-    printfn "Полученный список: %A" regularList
+    System.Console.WriteLine("введите количество элементов списка:")
+    let n = int (System.Console.ReadLine())
+    printList (readList n)
     0
