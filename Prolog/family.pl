@@ -57,6 +57,7 @@ b_s(X) :- parent(P, X), parent(P, Y), X \= Y, write(Y), nl, fail.
 b_s(_).
 
 % --- Вариант 7 ---
+% --- Задание 2 ---
 
 % 1. Проверка, является ли X отцом Y
 father(X, Y) :- man(X), parent(X, Y).
@@ -70,3 +71,39 @@ sister(X, Y) :- woman(X), X \= Y, parent(P, X), parent(P, Y).
 % 4. Вывод всех сестёр X
 sisters(X) :- parent(P, X), parent(P, Y), woman(Y), X \= Y, write(Y), nl, fail.
 sisters(_).
+
+ % --- Задание 3 ---
+
+% 1. Проверка, является ли X дедушкой Y
+grand_pa(X, Y) :- 
+    man(X),
+    parent(X, Parent),
+    parent(Parent, Y).
+
+% 2. Вывод всех дедушек X
+grand_pas(X) :- 
+    parent(GrandPa, Parent),
+    man(GrandPa),
+    parent(Parent, X),
+    write(GrandPa), nl,
+    fail.
+grand_pas(_).
+
+% 3. Проверка связи "дедушка-внук" в любом порядке
+grand_pa_and_son(X, Y) :- 
+    grand_pa(X, Y); 
+    grand_pa(Y, X).
+
+% 4. Проверка, является ли X дядей Y
+uncle(X, Y) :- 
+    man(X),
+    parent(Parent, Y),
+    brother(X, Parent).
+
+% 5. Вывод всех дядей X
+uncles(X) :- 
+    parent(Parent, X),
+    brother(Uncle, Parent),
+    write(Uncle), nl,
+    fail.
+uncles(_).
