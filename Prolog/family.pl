@@ -55,3 +55,18 @@ b_s(X, Y) :- parent(P, X), parent(P, Y), X \= Y.
 % Предикат для вывода всех братьев и сестёр X
 b_s(X) :- parent(P, X), parent(P, Y), X \= Y, write(Y), nl, fail.
 b_s(_).
+
+% --- Вариант 7 ---
+
+% 1. Проверка, является ли X отцом Y
+father(X, Y) :- man(X), parent(X, Y).
+
+% 2. Вывод отца X
+father(X) :- parent(Father, X), man(Father), write(Father).
+
+% 3. Проверка, является ли X сестрой Y
+sister(X, Y) :- woman(X), X \= Y, parent(P, X), parent(P, Y).
+
+% 4. Вывод всех сестёр X
+sisters(X) :- parent(P, X), parent(P, Y), woman(Y), X \= Y, write(Y), nl, fail.
+sisters(_).
