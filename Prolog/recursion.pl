@@ -263,3 +263,108 @@ product_list([H|T], Product) :-
 % Сумма цифр исходного числа: 2+0=2
 % Подходят делители с суммой цифр < 2: только 1
 % P = 1.
+
+
+
+%Задание 6
+
+% Предикат для нахождения количества минимальных элементов
+count_min_elements(List, Count) :-
+    min_list(List, Min),              % Находим минимальный элемент
+    include(=(Min), List, MinList),   % Фильтруем все минимальные элементы
+    length(MinList, Count).           % Считаем их количество
+
+
+% ?- count_min_elements([3, 1, 4, 1, 5, 1], C).
+% C = 3.  % Минимальный элемент 1 встречается 3 раза
+
+
+
+% Предикат для сортировки элементов по частоте
+frequency_sort(List, Sorted) :-
+    % Создаем список пар [Элемент, Частота]
+    map_frequency(List, FreqList),
+    % Сортируем по убыванию частоты
+    sort_frequency(FreqList, SortedFreq),
+    % Разворачиваем пары в плоский список
+    unpack_pairs(SortedFreq, Sorted).
+
+% Подсчет частоты каждого элемента
+map_frequency([], []).
+map_frequency([H|T], FreqList) :-
+    count_occurrences(H, [H|T], Count, Rest),
+    map_frequency(Rest, FreqListRest),
+    FreqList = [[H, Count] | FreqListRest].
+
+% Подсчет количества вхождений элемента
+count_occurrences(X, List, Count, Rest) :-
+    include(=(X), List, XList),
+    length(XList, Count),
+    exclude(=(X), List, Rest).
+
+% Сортировка пар по частоте (убывание)
+sort_frequency(List, Sorted) :-
+    predsort(compare_freq, List, Sorted).
+
+compare_freq(>, [_, C1], [_, C2]) :- C1 < C2.
+compare_freq(<, [_, C1], [_, C2]) :- C1 > C2.
+compare_freq(=, _, _).
+
+% Преобразование пар в плоский список
+unpack_pairs([], []).
+unpack_pairs([[X, N]|T], Expanded) :-
+    length(SubList, N), maplist(=(X), SubList),
+    unpack_pairs(T, Rest),
+    append(SubList, Rest, Expanded).
+
+
+
+
+% ?- frequency_sort([5,6,2,2,3,3,3,5,5,5], S).
+% S = [5, 5, 5, 5, 3, 3, 3, 2, 2, 6].
+
+
+
+
+%Задание 7
+
+% Определение боксеров
+boxers([thomas_herbert, herbert_francis, francis_james, james_thomas]).
+
+% Предикат для решения задачи
+solve_boxers :-
+    % Создаем список для силы боксеров (чем выше в списке, тем слабее)
+    boxers(Boxers),
+    permutation(Boxers, [Weakest, Stronger, EvenStronger, Strongest]),
+    
+    % Условие 1: Герберт (herbert_francis) сильнее Томаса (thomas_herbert)
+    is_stronger(herbert_francis, thomas_herbert, [Weakest, Stronger, EvenStronger, Strongest]),
+    
+    % Условие 2: Френсис (francis_james) сильнее Томаса и Герберта
+    is_stronger(francis_james, thomas_herbert, [Weakest, Stronger, EvenStronger, Strongest]),
+    is_stronger(francis_james, herbert_francis, [Weakest, Stronger, EvenStronger, Strongest]),
+    
+    % Условие 3: Герберт слабее Джеймса (james_thomas), но сильнее Френсиса
+    is_stronger(james_thomas, herbert_francis, [Weakest, Stronger, EvenStronger, Strongest]),
+    is_stronger(herbert_francis, francis_james, [Weakest, Stronger, EvenStronger, Strongest]),
+    
+    % Вывод результата
+    format('Порядок от слабейшего к сильнейшему:~n'),
+    format('1. ~w~n', [Weakest]),
+    format('2. ~w~n', [Stronger]),
+    format('3. ~w~n', [EvenStronger]),
+    format('4. ~w~n', [Strongest]).
+
+% Предикат для сравнения силы боксеров
+is_stronger(Stronger, Weaker, List) :-
+    nth1(WeakIndex, List, Weaker),
+    nth1(StrongIndex, List, Stronger),
+    WeakIndex > StrongIndex.
+
+
+% ?- solve_boxers.
+% Порядок от слабейшего к сильнейшему:
+% 1. thomas_herbert
+% 2. francis_james
+% 3. herbert_francis
+% 4. james_thomass
