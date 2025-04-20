@@ -161,3 +161,43 @@ even(X) :- 0 is X mod 2.
 
 % ?- count_even([1,2,3,4,5,6], C).
 % C = 3.  % Чётные: 2, 4, 6 → 3 элемента
+
+
+
+%Задание 4
+
+% Определение цветов волос
+hair_colors([blond, brunet, ginger]).
+
+% Решение задачи
+solve_hair_color :-
+    % Цвета волос для каждого друга
+    hair_colors(Colors),
+    permutation(Colors, [Belokurov, Ryzhov, Chernov]),
+    
+    % Условия задачи:
+    % 1. Ни у кого цвет волос не соответствует фамилии
+    Belokurov \= blond,    % Белокуров не блондин
+    Ryzhov \= ginger,        % Рыжов не рыжий
+    Chernov \= black,     % Чернов не брюнет (черный - здесь brunet)
+    
+    % 2. Один блондин, один брюнет, один рыжий
+    % (уже обеспечено permutation)
+    
+    % 3. Брюнет сказал Белокурову => Белокуров не брюнет
+    % (так как брюнет - это говорящий)
+    Belokurov \= brunet,
+    
+    % Определяем, кто брюнет
+    (Ryzhov = brunet ; Chernov = brunet),
+    
+    % Вывод результатов
+    format('Белокуров: ~w~n', [Belokurov]),
+    format('Рыжов: ~w~n', [Ryzhov]),
+    format('Чернов: ~w~n', [Chernov]).
+
+
+%?- solve_hair_color.
+%Белокуров: red
+%Рыжов: brunet
+%Чернов: blond
