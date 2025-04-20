@@ -201,3 +201,65 @@ solve_hair_color :-
 %Белокуров: red
 %Рыжов: brunet
 %Чернов: blond
+
+
+
+ %Задание 5
+
+ % Предикат для проверки простоты числа
+is_prime(2).
+is_prime(3).
+is_prime(P) :- 
+    P > 3, 
+    P mod 2 =\= 0, 
+    \+ has_factor(P, 3).
+
+has_factor(N, F) :- 
+    F * F =< N, 
+    (N mod F =:= 0 ; F1 is F + 2, has_factor(N, F1)).
+
+% Предикат для нахождения суммы простых делителей
+sum_prime_divisors(N, Sum) :-
+    N > 1,
+    findall(D, (between(2, N, D), N mod D =:= 0, is_prime(D)), Divisors),
+    sum_list(Divisors, Sum).
+
+% Вспомогательный предикат для суммирования
+sum_list([], 0).
+sum_list([H|T], Sum) :- sum_list(T, Sum1), Sum is H + Sum1.
+
+
+% ?- sum_prime_divisors(28, S).  % Простые делители 2 и 7 → 2+7=9
+% S = 9.
+
+
+
+
+
+% Предикат для суммы цифр числа
+sum_digits(0, 0).
+sum_digits(N, Sum) :-
+    N > 0,
+    Digit is N mod 10,
+    N1 is N // 10,
+    sum_digits(N1, Sum1),
+    Sum is Sum1 + Digit.
+
+% Предикат для нахождения подходящих делителей
+product_special_divisors(N, Product) :-
+    sum_digits(N, SumN),
+    findall(D, (between(1, N, D), N mod D =:= 0, sum_digits(D, SumD), SumD < SumN), Divisors),
+    product_list(Divisors, Product).
+
+% Вспомогательный предикат для вычисления произведения
+product_list([], 1).
+product_list([H|T], Product) :- 
+    product_list(T, Product1), 
+    Product is H * Product1.
+
+
+% ?- product_special_divisors(20, P). 
+% Делители 20: 1, 2, 4, 5, 10, 20
+% Сумма цифр исходного числа: 2+0=2
+% Подходят делители с суммой цифр < 2: только 1
+% P = 1.
