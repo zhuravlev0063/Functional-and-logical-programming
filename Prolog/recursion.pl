@@ -63,3 +63,56 @@ sum_list_up([], Acc, Acc).         % Базовый случай
 sum_list_up([H|T], Acc, Sum) :-
     Acc1 is Acc + H,               % Накопление суммы
     sum_list_up(T, Acc1, Sum).     % Хвостовой вызов    
+
+
+
+%Задание 2
+
+ % Базовый случай: 0 для числа 0
+product_digits(0, 0).
+
+% Основной предикат с аккумулятором
+product_digits(Number, Product) :-
+    Number > 0,
+    product_digits(Number, 1, Product).
+
+product_digits(0, Acc, Acc).  % Возврат аккумулятора
+product_digits(Number, Acc, Product) :-
+    Number > 0,
+    Digit is Number mod 10,   % Последняя цифра
+    NewAcc is Acc * Digit,    % Накопление произведения
+    NextNumber is Number // 10,
+    product_digits(NextNumber, NewAcc, Product).
+
+
+% ?- product_digits(123, P).  % 1*2*3 = 6
+% P = 6.
+
+
+count_odd_gt3(Number, Count) :-
+    number_chars(Number, Chars),       % Число → список символов
+    include(is_odd_and_gt3, Chars, FilteredChars), % Фильтрация
+    length(FilteredChars, Count).      % Подсчёт элементов
+
+% Проверка, что цифра нечётная и > 3
+is_odd_and_gt3(Char) :-
+    char_type(Char, digit(Digit)),     % Символ → число
+    Digit > 3,
+    1 is Digit mod 2.                  % Нечётность
+
+
+
+% ?- count_odd_gt3(13572, C).  % Подходят 5 и 7
+% C = 2.
+
+
+
+gcd(A, 0, A).  % Базовый случай
+gcd(A, B, GCD) :-
+    B > 0,
+    Remainder is A mod B,
+    gcd(B, Remainder, GCD).
+
+% ?- gcd(36, 48, G).  
+% G = 12.
+
