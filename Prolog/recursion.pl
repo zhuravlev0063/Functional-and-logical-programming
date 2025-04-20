@@ -116,3 +116,48 @@ gcd(A, B, GCD) :-
 % ?- gcd(36, 48, G).  
 % G = 12.
 
+
+
+%Задание 3
+
+% Предикат для циклического сдвига вправо на N позиций
+shift_right(List, N, Shifted) :-
+    length(List, Len),
+    N1 is N mod Len,                  % Учитываем случай, когда N > длины списка
+    split_list(List, Len - N1, Left, Right),
+    append(Right, Left, Shifted).
+
+% Разделение списка на две части по индексу
+split_list(List, N, Left, Right) :-
+    length(Left, N),
+    append(Left, Right, List).
+
+% Специальный предикат для сдвига на 2 позиции
+shift_right_2(List, Shifted) :- shift_right(List, 2, Shifted).
+
+% ?- shift_right_2([1,2,3,4,5], S).
+% S = [4,5,1,2,3].  % Сдвиг на 2 вправо: [1,2,3,4,5] → [4,5,1,2,3]
+
+
+
+
+% Используем общий предикат shift_right с N=1
+shift_right_1(List, Shifted) :- shift_right(List, 1, Shifted).
+
+
+% ?- shift_right_1([1,2,3,4,5], S).
+% S = [5,1,2,3,4].  % Сдвиг на 1 вправо: [1,2,3,4,5] → [5,1,2,3,4]
+
+
+
+% Предикат для подсчёта чётных элементов
+count_even(List, Count) :-
+    include(even, List, EvenList),  % Фильтруем чётные
+    length(EvenList, Count).        % Считаем их количество
+
+% Проверка на чётность
+even(X) :- 0 is X mod 2.
+
+
+% ?- count_even([1,2,3,4,5,6], C).
+% C = 3.  % Чётные: 2, 4, 6 → 3 элемента
